@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  dukkantekapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "9500:80"

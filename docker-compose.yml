@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  dukkanteksqldb:
+   user: root
+   container_name: dukkanteksqldb
+   image : mcr.microsoft.com/mssql/server:2019-latest
+   ports: 
+     - "1433:1433"
+   environment: 
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Amr@1452"
+
+  dukkantekapi:
+    environment:
+       - ConnectionStrings__DukkantekDbContext=Server=dukkanteksqldb;Initial Catalog=Dukkantek;User Id=sa;Password=Amr@1452;
+    container_name: dukkantekapi
+    build:
+      context: .
+      dockerfile: Dukkantek.API/Dockerfile
+    ports:
+        - "9500:80"
+    depends_on:
+        - dukkanteksqldb
